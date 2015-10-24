@@ -9,7 +9,7 @@ html, body {
     height: 100%;
 }
 
-#content {
+#chat {
     font-size: 1.5em;
     line-height: 1.5em;
     color: #333;
@@ -18,7 +18,7 @@ html, body {
     padding: 2em 5em;
 }
 
-#content[disabled="disabled"] {
+#chat[disabled="disabled"] {
     color: #aaa;
 }
 

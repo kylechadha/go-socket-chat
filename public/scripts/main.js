@@ -1,24 +1,25 @@
-$(function() {
+$(document).ready(function() {
     if (!window["WebSocket"]) {
         return;
     }
 
-    var content = $("#content");
+    var chat = $("#chat");
+    var chatInput = $("#input");
     var conn = new WebSocket('ws://' + window.location.host + '/ws');
 
     // Textarea is editable only when socket is opened.
     conn.onopen = function(e) {
-        content.attr("disabled", false);
+        chat.attr("disabled", false);
+        chat.val("Connection received. Waiting for chats.")
     };
-
     conn.onclose = function(e) {
-        content.attr("disabled", true);
+        chat.attr("disabled", true);
     };
 
-    // Whenever we receive a message, update textarea
+    // Whenever we receive a message, update textarea.
     conn.onmessage = function(e) {
-        if (e.data != content.val()) {
-            content.val(e.data);
+        if (e.data != chat.val()) {
+            chat.val(e.data);
         }
     };
 
@@ -26,12 +27,12 @@ $(function() {
     var typingTimeoutId = null;
     var isTyping = false;
 
-    content.on("keydown", function() {
+    chatInput.on("keydown", function() {
         isTyping = true;
         window.clearTimeout(typingTimeoutId);
     });
 
-    content.on("keyup", function() {
+    chatInput.on("keyup", function() {
         typingTimeoutId = window.setTimeout(function() {
             isTyping = false;
         }, 1000);
@@ -39,7 +40,7 @@ $(function() {
         window.clearTimeout(timeoutId);
         timeoutId = window.setTimeout(function() {
             if (isTyping) return;
-            conn.send(content.val());
+            conn.send(chatInput.val());
         }, 1100);
     });
-});
+})
