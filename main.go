@@ -1,15 +1,22 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 func main() {
 
 	// Router
 	// ----------------------------
-	router := NewRouter()
+	router := newRouter()
 
 	// Server
 	// ----------------------------
-	http.ListenAndServe(":8080", router)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+	http.ListenAndServe(":"+port, router)
 
 }
