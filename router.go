@@ -15,6 +15,7 @@ func newRouter() *mux.Router {
 	router.HandleFunc("/ws", socketHandler)
 
 	// Public routes.
+	router.PathPrefix("/libs").Handler(http.FileServer(http.Dir("./public/")))
 	router.PathPrefix("/scripts").Handler(http.FileServer(http.Dir("./public/")))
 	router.PathPrefix("/styles").Handler(http.FileServer(http.Dir("./public/")))
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/views")))

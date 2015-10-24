@@ -4,10 +4,18 @@
     <title>Obligatory Chat App</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="/scripts/main.js"></script>
+	<link rel="stylesheet" href="/libs/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/master.css" type="text/css" />
 </head>
 <body>
-    <textarea spellcheck="false" class="doc" id="chat" disabled="disabled">Waiting for a connection...</textarea>
-    <textarea id="input" placeholder="Enter text here"></textarea>
+	<div class="alert alert-info" role="alert" id="status">Waiting for a connection...</div>
+    <div id="chat"></div>
+    <input id="input" placeholder="Enter text here"></input>
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 </body>
 </html>
