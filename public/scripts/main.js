@@ -3,10 +3,11 @@ $(document).ready(function() {
         return;
     }
 
-    var chat = $("#chat");
-    var status = $("#status")
-    var input = $("#input");
-    var conn = new WebSocket('ws://' + window.location.host + '/ws');
+    var chat = $("#chat"),
+        status = $("#status"),
+        input = $("#input"),
+        text = $("#text"),
+        conn = new WebSocket('ws://' + window.location.host + '/ws');
 
     // Textarea is editable only when socket is opened.
     conn.onopen = function(e) {
@@ -18,34 +19,16 @@ $(document).ready(function() {
         status[0].className = "alert alert-danger";
     };
 
-    // Whenever we receive a message, update textarea.
+    // Whenever we receive a message, update the chat window.
     conn.onmessage = function(e) {
-        console.log("Receiving message");
         if (e.data != chat.text()) {
-            // *** ALSO
-            // Append random name or chat # assigned by backend
             chat.text(chat.text() + "\n" + e.data);
         }
     };
 
-    var timeoutId = null;
-    var typingTimeoutId = null;
-    var isTyping = false;
-
-    input.on("keydown", function() {
-        isTyping = true;
-        window.clearTimeout(typingTimeoutId);
-    });
-
-    input.on("keyup", function() {
-        typingTimeoutId = window.setTimeout(function() {
-            isTyping = false;
-        }, 1000);
-
-        window.clearTimeout(timeoutId);
-        timeoutId = window.setTimeout(function() {
-            if (isTyping) return;
-            conn.send(input.text());
-        }, 1100);
-    });
+    input.on('submit', function(e) {
+        e.preventDefault();
+        conn.send(text.val());
+        text.val("");
+    })
 })

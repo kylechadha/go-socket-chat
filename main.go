@@ -7,8 +7,9 @@ import (
 
 func main() {
 
-	// Router
+	// Hub & Router
 	// ----------------------------
+	go h.activate()
 	router := newRouter()
 
 	// Server
