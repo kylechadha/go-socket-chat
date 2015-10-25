@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -18,6 +19,7 @@ const (
 type client struct {
 	conn *websocket.Conn
 	send chan []byte
+	id   int
 }
 
 var upgrader = websocket.Upgrader{
@@ -42,6 +44,7 @@ func socketHandler(w http.ResponseWriter, r *http.Request) {
 	c := &client{
 		conn: conn,
 		send: make(chan []byte, maxMessageSize),
+		id:   h.connected + 1,
 	}
 
 	h.register <- c
@@ -69,7 +72,7 @@ func (c *client) readPump() {
 			break
 		}
 
-		h.broadcast <- string(message)
+		h.broadcast <- "User " + strconv.Itoa(c.id) + ": " + string(message)
 	}
 }
 

@@ -2,6 +2,7 @@ package main
 
 type hub struct {
 	clients    map[*client]bool
+	connected  int
 	broadcast  chan string
 	register   chan *client
 	unregister chan *client
@@ -19,6 +20,7 @@ func (h *hub) activate() {
 		select {
 		case c := <-h.register:
 			h.clients[c] = true
+			h.connected++
 			break
 
 		case c := <-h.unregister:
@@ -26,6 +28,7 @@ func (h *hub) activate() {
 			if ok {
 				delete(h.clients, c)
 				close(c.send)
+				h.connected--
 			}
 			break
 
