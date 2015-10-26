@@ -35,9 +35,6 @@ logs
 build/Release
 node_modules
 
-# Bower
-public/libs
-
 # SCSS
 **/.sass-cache
 **/.sass-cache/*
