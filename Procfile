@@ -1,1 +1,1 @@
-web: ./go-socket-chat -port $PORT
+web: go-socket-chat -port $PORT
