@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/kylechadha/go-socket-chat/Godeps/_workspace/src/github.com/gorilla/mux"
 )
 
 func newRouter() *mux.Router {

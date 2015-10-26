@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gorilla/websocket"
+	"github.com/kylechadha/go-socket-chat/Godeps/_workspace/src/github.com/gorilla/websocket"
 )
 
 const (
