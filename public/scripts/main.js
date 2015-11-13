@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // If WS are not available, no dice.
+    // If WebSockets are not available, no dice.
     if (!window["WebSocket"]) {
         return;
     }

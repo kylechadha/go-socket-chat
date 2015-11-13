@@ -2,6 +2,7 @@ package main
 
 import "strconv"
 
+// Define our hub struct.
 type hub struct {
 	clients    map[*client]bool
 	connected  int
@@ -10,6 +11,7 @@ type hub struct {
 	unregister chan *client
 }
 
+// Instantiate our hub and channels.
 var h = hub{
 	clients:    make(map[*client]bool),
 	broadcast:  make(chan string),
@@ -17,6 +19,7 @@ var h = hub{
 	unregister: make(chan *client),
 }
 
+// The hub handles registrations and broadcasts.
 func (h *hub) activate() {
 	for {
 		select {
@@ -37,7 +40,7 @@ func (h *hub) activate() {
 				delete(h.clients, c)
 				close(c.send)
 
-				// Broadcast a user leave message.
+				// Broadcast a user exit message.
 				h.broadcastMessage("User " + strconv.Itoa(c.id) + " has left the chat.")
 			}
 			break

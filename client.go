@@ -9,6 +9,7 @@ import (
 	"github.com/kylechadha/go-socket-chat/Godeps/_workspace/src/github.com/gorilla/websocket"
 )
 
+// Define our constants.
 const (
 	maxMessageSize = 1024 * 1024
 	pongWait       = 60 * time.Second
@@ -16,6 +17,7 @@ const (
 	writeWait      = 10 * time.Second
 )
 
+// Define the client struct.
 type client struct {
 	conn *websocket.Conn
 	send chan []byte
@@ -30,6 +32,7 @@ var upgrader = websocket.Upgrader{
 func socketHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Socket connection opened.")
 
+	// Restrict to HTTP GET.
 	if r.Method != "GET" {
 		http.Error(w, "Method not allowed.", 405)
 		return
